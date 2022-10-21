@@ -1,12 +1,15 @@
 const path = require('path');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const tailwindcss = require('tailwindcss')
+const autoprefixer = require('autoprefixer') // help tailwindcss to work
 
 const isProduction = process.env.NODE_ENV == 'production';
 
 
 const config = {
-    entry: './app/index.ts',
+    entry: './app/index.tsx',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',
@@ -17,10 +20,12 @@ const config = {
         host: 'localhost',
     },
     plugins: [
-        // new HtmlWebpackPlugin({
-        //     template: 'index.html',
-        // }),
-
+        new HtmlWebpackPlugin({
+            template: './app/index.html',
+        }),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].css'
+        }),
         // Add your plugins here
         // Learn more about plugins from https://webpack.js.org/configuration/plugins/
     ],
@@ -35,13 +40,29 @@ const config = {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
                 type: 'asset',
             },
-
+            {
+                test: /\.(css|scss|sass)$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader',
+                    {
+                        loader: 'postcss-loader', // postcss loader needed for tailwindcss
+                        options: {
+                            postcssOptions: {
+                                ident: 'postcss',
+                                plugins: [tailwindcss, autoprefixer],
+                            },
+                        },
+                    },
+                ],
+            },
             // Add your rules for custom modules here
             // Learn more about loaders from https://webpack.js.org/loaders/
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.jsx', '.js', '...'],
+        extensions: ['.tsx', '.ts', '.jsx', '.js'],
     },
 };
 
