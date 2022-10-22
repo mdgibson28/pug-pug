@@ -10,8 +10,6 @@ export default class Button extends React.Component<IButtonProps, any> {
 
     constructor(props:IButtonProps) {
         super(props);
-
-        console.log(props);
     }
 
     render():ReactNode {

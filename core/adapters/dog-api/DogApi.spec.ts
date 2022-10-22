@@ -1,10 +1,10 @@
-import {Example} from './Example';
+import {DogApi} from './Example';
 
 describe('Example', () => {
-    let adapter:Example;
+    let adapter:DogApi;
 
     beforeEach(() => {
-        adapter = new Example();
+        adapter = new DogApi();
     });
 
     it('should use dependencies', () => {
