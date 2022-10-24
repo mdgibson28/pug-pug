@@ -1,1 +1,1 @@
-export * from './dog-api/Example';
+export * from './data-access/DogApi';

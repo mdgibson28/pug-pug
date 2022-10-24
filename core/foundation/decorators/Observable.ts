@@ -1,6 +1,7 @@
-
-export function Dependency(target:any, key:string):void {
+export function Observable(target:any, key:string):void {
     const pKey:string = '_' + key;
+    const subscriptionsKey:string = '::subscriptions' + pKey;
+    const observableKey:string = '::observable' + pKey;
 
     target['::set' + pKey] = function ():Function {
         return function (newVal:any):void {
@@ -36,8 +37,25 @@ export function Dependency(target:any, key:string):void {
         };
     };
 
-    // Set up property on class that will initialize on get/set and turn into the
-    // object we want to use but can't make until after object is initialized
+    target[subscriptionsKey] = [];
+    target[observableKey] = {
+        subscribe: (callback:(newVal:any) => void) => {
+            target[subscriptionsKey].push(callback);
+        },
+        unsubscribe: (callback:(newVal:any) => void) => {
+            target[subscriptionsKey].filter((subscription:any) => {
+                return subscription !== callback;
+            });
+        },
+        next: (newValue:any) => {
+            for(let subscription of target[subscriptionsKey]) {
+                subscription(newValue);
+            }
+        }
+    }
+
+    Object.freeze(target[observableKey]);
+
     Object.defineProperty(target, key, {
         get: target['::get' + pKey](),
         set: target['::set' + pKey](),

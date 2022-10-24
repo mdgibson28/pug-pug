@@ -1,12 +1,8 @@
 import React from "react";
 import Button from './Button';
-import {SeeDog} from '../../core/use-cases';
-import {Dog} from '../../core/entities';
-import Gif from './Gif';
+import DogImage from './DogImage';
 
 export default class App extends React.Component<any, any> {
-    private dog:Dog;
-
     public render() {
         return (
             <>
@@ -14,18 +10,12 @@ export default class App extends React.Component<any, any> {
                     PugPug!
                 </h1>
 
-                <Button onClick={() => { this.execute() }}
+                <Button onClick={() => { this.seeRandomDog.execute() }}
                         text={'I wanna see a dog!'}>
                 </Button>
 
-                <Gif dog={this.dog}></Gif>
+                <DogImage></DogImage>
             </>
         );
-    }
-
-    public execute():void {
-        new SeeDog().execute().then((dog:Dog) => {
-            this.dog = dog;
-        });
     }
 }

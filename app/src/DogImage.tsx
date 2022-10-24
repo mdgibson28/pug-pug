@@ -1,15 +1,13 @@
 import React, {ReactNode} from 'react';
 import {Dog} from '../../core/entities';
+import {SeeRandomDogController} from './controllers';
 
-export interface IGifProps {
-    dog:Dog;
-}
-
-export default class Gif extends React.Component<IGifProps, any> {
-    constructor(props:IGifProps) {
+export default class DogImage extends React.Component<any, any> {
+    constructor(props:any) {
         super(props);
         this.state = { dog: null };
         this.handleStatusChange = this.handleStatusChange.bind(this);
+        SeeRandomDogController
     }
 
     public url:string;
@@ -19,6 +17,7 @@ export default class Gif extends React.Component<IGifProps, any> {
     }
 
     handleStatusChange(dog:Dog) {
+        console.error('handleStatusChange');
         this.setState({
             dog: dog
         });

@@ -6,18 +6,18 @@ import {Dog} from '../../entities';
 import {Dependency} from '../../foundation/decorators/Dependency';
 
 export interface IDependencies extends DependencySet {
-    provider: {fetch: () => Promise<Partial<Dog>>;};
+    provider:{getRandom:() => Promise<Dog>};
 }
 
 @Factory<IDependencies>(dependencies)
-export class SeeDog extends UseCase<SeeDog> {
+export class SeeRandomDog extends UseCase<SeeRandomDog> {
 
-    @Dependency provider:{fetch: () => Promise<Partial<Dog>>;};
+    @Dependency provider:{getRandom:() => Promise<Dog>};
 
     public async execute():Promise<Dog> {
         const dog:Dog = new Dog();
 
-        await this.provider.fetch().then((data:Partial<Dog>) => {
+        await this.provider.getRandom().then((data:Partial<Dog>) => {
             Object.assign(dog, data);
         });
 
