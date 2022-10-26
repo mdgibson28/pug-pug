@@ -1,31 +1,37 @@
 import React, {ReactNode} from 'react';
+import {ISubscription} from '../../core/foundation/types/Observable';
+import {DogImage as DogImageController} from '../../core/adapters/contollers/DogImage';
 import {Dog} from '../../core/entities';
-import {SeeRandomDogController} from './controllers';
 
 export default class DogImage extends React.Component<any, any> {
+
+    private subscription:ISubscription;
+
     constructor(props:any) {
         super(props);
-        this.state = { dog: null };
-        this.handleStatusChange = this.handleStatusChange.bind(this);
-        SeeRandomDogController
+
+        this.state = {
+            dog: new Dog()
+        };
     }
 
-    public url:string;
-
-    public getUrl():string {
-        return this.state.dog ? this.state.dog.url : '';
-    }
-
-    handleStatusChange(dog:Dog) {
-        console.error('handleStatusChange');
-        this.setState({
-            dog: dog
+    componentDidMount() {
+        this.subscription = new DogImageController().dog.subscribe((dog:Dog) => {
+            console.log('Setting state');
+            console.log(JSON.stringify(dog, null, 4));
+            this.setState({
+                dog: dog
+            });
         });
     }
 
+    componentWillUnmount() {
+        this.subscription.unsubscribe();
+    }
+
     render():ReactNode {
-        return(
-            <img src={this.getUrl()}/>
+        return (
+            <img src={this.state.dog.url}/>
         )
     }
 }

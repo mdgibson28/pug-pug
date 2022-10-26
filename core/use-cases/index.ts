@@ -1,1 +1,1 @@
-export * from './see-dog/SeeDog';
+export * from './see-dog/SeeRandomDog';

@@ -1,18 +1,13 @@
-import {Factory} from '../../foundation/decorators/Factory';
 import {Adapter} from '../Adapter';
 import {SeeRandomDog} from '../../use-cases/see-dog/SeeRandomDog';
 import {Dog} from '../../entities';
-import {Dependency} from '../../foundation/decorators/Dependency';
 import {Observable} from '../../foundation/decorators/Observable';
 import {IObservable} from '../../foundation/types/Observable';
+import {Controller} from '../../foundation/decorators/Controller';
 
-interface IDependency {
-    useCase:SeeRandomDog
-}
-
-@Factory<IDependency>({useCase:new SeeRandomDog()})
+@Controller
 export class DogImage extends Adapter<DogImage> {
-    @Dependency useCase:SeeRandomDog;
+    private useCase:SeeRandomDog = new SeeRandomDog();
 
     @Observable dog:IObservable<Dog>;
 

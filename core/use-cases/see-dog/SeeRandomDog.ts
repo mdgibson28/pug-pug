@@ -18,6 +18,7 @@ export class SeeRandomDog extends UseCase<SeeRandomDog> {
         const dog:Dog = new Dog();
 
         await this.provider.getRandom().then((data:Partial<Dog>) => {
+            console.log(data);
             Object.assign(dog, data);
         });
 

@@ -18,6 +18,12 @@ export class DogApi extends Adapter<DogApi> {
     public async getRandom():Promise<any> {
         return fetch(this.endpoint + 'breeds/image/random', {
             headers: this.headers
-        });
+        }).then((response) => {
+            return response.json();
+        }).then((data) => {
+            return {
+                url: data.message
+            }
+        })
     }
 }
