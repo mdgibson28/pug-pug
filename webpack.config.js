@@ -2,9 +2,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const tailwindcss = require('tailwindcss')
-const autoprefixer = require('autoprefixer') // help tailwindcss to work
-
 const isProduction = process.env.NODE_ENV == 'production';
 
 
@@ -43,18 +40,9 @@ const config = {
             {
                 test: /\.(css|scss|sass)$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    'style-loader',
                     'css-loader',
-                    'sass-loader',
-                    {
-                        loader: 'postcss-loader', // postcss loader needed for tailwindcss
-                        options: {
-                            postcssOptions: {
-                                ident: 'postcss',
-                                plugins: [tailwindcss, autoprefixer],
-                            },
-                        },
-                    },
+                    'postcss-loader'
                 ],
             },
             // Add your rules for custom modules here

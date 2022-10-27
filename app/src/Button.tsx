@@ -13,8 +13,9 @@ export default class Button extends React.Component<IButtonProps, any> {
     }
 
     render():ReactNode {
+        const css:string = 'border-solid border-2 p-2 m-2 rounded border-red-800 hover:bg-red-200';
         return (
-            <button onClick={this.props.onClick}>{this.props.text}</button>
+            <button className={css} onClick={this.props.onClick}>{this.props.text}</button>
         )
     }
 }

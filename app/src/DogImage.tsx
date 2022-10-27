@@ -30,8 +30,9 @@ export default class DogImage extends React.Component<any, any> {
     }
 
     render():ReactNode {
+        const css:string = 'm-2';
         return (
-            <img src={this.state.dog.url}/>
+            <img className={css} src={this.state.dog.url}/>
         )
     }
 }

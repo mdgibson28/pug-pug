@@ -11,7 +11,7 @@ export default class App extends React.Component<any, any> {
     public render() {
         return (
             <>
-                <h1 className={'text-xl'}>
+                <h1 className={'text-xl m-2'}>
                     PugPug!
                 </h1>
 
