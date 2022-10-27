@@ -3,9 +3,9 @@ import {SeeRandomDog} from '../../use-cases/see-dog/SeeRandomDog';
 import {Dog} from '../../entities';
 import {Observable} from '../../foundation/decorators/Observable';
 import {IObservable} from '../../foundation/types/Observable';
-import {Controller} from '../../foundation/decorators/Controller';
+import {Singleton} from '../../foundation/decorators/Singleton';
 
-@Controller
+@Singleton
 export class DogImage extends Adapter<DogImage> {
     private useCase:SeeRandomDog = new SeeRandomDog();
 

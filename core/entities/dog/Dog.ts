@@ -11,4 +11,5 @@ export class Dog extends Entity<Dog> {
 
     public breed:string;
     public url:string;
+
 }
